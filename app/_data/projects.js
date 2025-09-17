@@ -42,7 +42,7 @@ export const projects = [
     title: 'AgroScan',
     description: 'Developed a full-stack Flask and React application for real-time plant disease detection, delivering instant diagnosis, treatment recommendations, and weather-based farming insights.',
     longDescription: 'A smart agriculture solution that uses computer vision and machine learning to identify plant diseases from leaf images. Provides farmers with instant diagnostic results and actionable treatment recommendations.',
-    image: '/project-images/agroscan.png',
+    image: '/project-images/agroscan.jpg',
     liveUrl: 'https://agroscan.vercel.app',
     githubUrl: 'https://github.com/agamjot/agroscan',
     technologies: ['Flask', 'React', 'CNN', 'Transfer Learning', 'Computer Vision', 'Python', 'Machine Learning'],
