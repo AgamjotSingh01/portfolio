@@ -11,17 +11,21 @@ export default function ThemeToggle() {
   useEffect(() => {
     setMounted(true);
     
-    // Check for saved theme preference or default to 'light'
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    
-    setIsDark(shouldBeDark);
-    document.documentElement.setAttribute('data-theme', shouldBeDark ? 'dark' : 'light');
+    // Only access browser APIs after component mounts
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+      
+      setIsDark(shouldBeDark);
+      document.documentElement.setAttribute('data-theme', shouldBeDark ? 'dark' : 'light');
+    }
   }, []);
 
   const toggleTheme = () => {
+    if (typeof window === 'undefined') return;
+    
     const newTheme = !isDark;
     setIsDark(newTheme);
     
@@ -30,9 +34,15 @@ export default function ThemeToggle() {
     localStorage.setItem('theme', themeValue);
   };
 
-  // Don't render until mounted to prevent hydration mismatch
+  // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
-    return null;
+    return (
+      <div className={styles.toggleButton} style={{ opacity: 0 }}>
+        <div className={styles.iconContainer}>
+          <FiMoon />
+        </div>
+      </div>
+    );
   }
 
   return (

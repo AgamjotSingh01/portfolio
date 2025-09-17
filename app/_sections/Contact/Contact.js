@@ -38,17 +38,23 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Replace with your actual form submission logic
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
       
       setTimeout(() => {
         setSubmitStatus('');
       }, 5000);
-    }, 2000);
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
 
   const contactInfo = [
     {

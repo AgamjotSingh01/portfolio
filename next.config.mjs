@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-      compiler: {
+  // Enable styled-components support
+  compiler: {
     styledComponents: true,
   },
   
@@ -10,19 +11,23 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
   },
   
-  // Enable experimental features
-  experimental: {
-    optimizeCss: true,
-  },
+  // Disable static export if not needed
+  output: undefined, // Remove 'export' if you had it
   
   // Performance optimizations
   poweredByHeader: false,
   compress: true,
   
-  // Environment variables
-  env: {
-    CUSTOM_KEY: process.env.NODE_ENV,
+  // Webpack configuration to handle potential SSR issues
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
+    return config;
   },
-};
+}
 
-export default nextConfig;
+module.exports = nextConfig
