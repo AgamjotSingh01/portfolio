@@ -11,9 +11,6 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
   },
   
-  // Disable static export if not needed
-  output: undefined, // Remove 'export' if you had it
-  
   // Performance optimizations
   poweredByHeader: false,
   compress: true,
@@ -28,6 +25,6 @@ const nextConfig = {
     }
     return config;
   },
-}
+};
 
-module.exports = nextConfig
+export default nextConfig;
